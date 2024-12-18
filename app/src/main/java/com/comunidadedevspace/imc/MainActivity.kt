@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 
 class MainActivity : AppCompatActivity() {
@@ -17,13 +18,27 @@ class MainActivity : AppCompatActivity() {
 
         btnCalcular.setOnClickListener {
 
-            val peso: Float = inputPeso.text.toString().toFloat()
-            val altura: Float = inputAltura.text.toString().toFloat()
-            val altura2 = altura * altura
+            val pesoStr: String = inputPeso.text.toString()
+            val alturaStr: String = inputAltura.text.toString()
 
-            val imc = peso / altura2
+            if (pesoStr == "" || alturaStr == "") {
+                Snackbar.make(
+                    inputPeso,
+                    "Preencher os campos",
+                    Snackbar.LENGTH_SHORT
+                )
+                    .show()
+            } else {
+                val peso = pesoStr.toFloat()
+                val altura = alturaStr.toFloat()
 
-            println("Teste IMC: " + imc)
+                val altura2 = altura * altura
+                val imc = peso / altura2
+
+                println("Teste IMC: " + imc)
+            }
+
+
         }
 
     }
